@@ -2051,8 +2051,6 @@ fun PdfWebView(
                                                 }
                                                 .page {
                                                     position: relative !important;
-                                                    background-color: transparent !important;
-                                                    transform: translateZ(0) !important;
                                                 }
                                                 .custom-page-number-indicator {
                                                     position: absolute !important;
