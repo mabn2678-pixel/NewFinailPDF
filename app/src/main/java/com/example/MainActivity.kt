@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
     val database = PdfDatabase.getDatabase(applicationContext)
     val viewModel: PdfViewModel by viewModels {
-      PdfViewModelFactory(database.recentPdfDao())
+      PdfViewModelFactory(database.recentPdfDao(), database.pdfHighlightDao())
     }
 
     // Initialize state and check welcome screen status
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
     setIntent(intent)
     val database = PdfDatabase.getDatabase(applicationContext)
     val viewModel: PdfViewModel by viewModels {
-      PdfViewModelFactory(database.recentPdfDao())
+      PdfViewModelFactory(database.recentPdfDao(), database.pdfHighlightDao())
     }
     handleIntent(intent, viewModel)
   }

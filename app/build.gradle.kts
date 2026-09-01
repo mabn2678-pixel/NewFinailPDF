@@ -5,6 +5,7 @@ import java.net.URI
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.google.devtools.ksp)
   alias(libs.plugins.roborazzi)
   alias(libs.plugins.secrets)
@@ -116,6 +117,7 @@ dependencies {
   implementation(libs.accompanist.permissions)
   implementation(libs.kotlinx.coroutines.android)
   implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.serialization.json)
   implementation("com.tom-roush:pdfbox-android:2.0.27.0")
   implementation("cz.adaptech.tesseract4android:tesseract4android:4.7.0")
   implementation("com.google.mlkit:text-recognition:16.0.1")

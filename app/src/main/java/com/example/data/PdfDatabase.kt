@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [RecentPdf::class, CachedAudio::class], version = 4, exportSchema = false)
+@Database(entities = [RecentPdf::class, CachedAudio::class, PdfHighlight::class], version = 5, exportSchema = false)
 abstract class PdfDatabase : RoomDatabase() {
     abstract fun recentPdfDao(): RecentPdfDao
     abstract fun cachedAudioDao(): CachedAudioDao
+    abstract fun pdfHighlightDao(): PdfHighlightDao
 
     companion object {
         @Volatile
