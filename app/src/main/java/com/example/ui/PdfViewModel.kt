@@ -20,15 +20,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.data.CachedAudio
 import com.example.data.PdfDatabase
-import com.example.data.PdfHighlight
-import com.example.data.PdfHighlightDao
 import com.example.data.RecentPdf
 import com.example.data.RecentPdfDao
 import com.example.data.SettingsRepository
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -166,14 +161,9 @@ data class PdfUiState(
     val selectedPdfText: String? = null,
     val showTextSelectionToolbar: Boolean = false,
     val selectionPageNumber: Int = 1,
-    val selectionQuads: List<SelectionRectQuad> = emptyList(),
-    val selectionAnchor: SelectionAnchor = SelectionAnchor(),
-    val isSelectionActionBarVisible: Boolean = false,
-    val editingHighlightId: Long? = null,
-    val editingHighlightColor: Int? = null,
     val stickyNotesList: List<PdfStickyNote> = emptyList(),
     val showAddStickyNoteDialog: Boolean = false,
-    val textSelectionHighlightColor: String = "#FFFF98"
+    val textSelectionHighlightColor: String = "#FFEB3B"
 )
 
 data class PdfStickyNote(
@@ -186,10 +176,7 @@ data class PdfStickyNote(
     val isHighlightOnly: Boolean = false
 )
 
-class PdfViewModel(
-    private val recentPdfDao: RecentPdfDao,
-    private val pdfHighlightDao: PdfHighlightDao
-) : ViewModel() {
+class PdfViewModel(private val recentPdfDao: RecentPdfDao) : ViewModel() {
 
     private var appContext: Context? = null
 
@@ -588,101 +575,17 @@ class PdfViewModel(
         _uiState.update { it.copy(hasUnsavedChanges = hasChanges) }
     }
 
-    // Text Selection & Highlights Methods
-    fun onTextSelectionChanged(selectionJson: String) {
-        if (selectionJson.isBlank()) {
-            _uiState.update {
-                it.copy(
-                    selectedPdfText = null,
-                    showTextSelectionToolbar = false,
-                    isSelectionActionBarVisible = false,
-                    selectionQuads = emptyList(),
-                    editingHighlightId = null,
-                    editingHighlightColor = null
-                )
-            }
-            return
-        }
-
-        try {
-            val json = Json { ignoreUnknownKeys = true }
-            val payload = json.decodeFromString<TextSelectionPayload>(selectionJson)
-            val trimmed = payload.text.trim()
-            if (trimmed.isEmpty()) {
-                _uiState.update {
-                    it.copy(
-                        selectedPdfText = null,
-                        showTextSelectionToolbar = false,
-                        isSelectionActionBarVisible = false,
-                        selectionQuads = emptyList(),
-                        editingHighlightId = null,
-                        editingHighlightColor = null
-                    )
-                }
-            } else {
-                _uiState.update {
-                    it.copy(
-                        selectedPdfText = trimmed,
-                        selectionPageNumber = if (payload.pageNumber > 0) payload.pageNumber else it.currentPage,
-                        selectionQuads = payload.quads,
-                        selectionAnchor = payload.anchor,
-                        isSelectionActionBarVisible = true,
-                        showTextSelectionToolbar = true,
-                        editingHighlightId = null,
-                        editingHighlightColor = null
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    fun onHighlightClicked(
-        highlightId: Long,
-        clientX: Float,
-        clientY: Float,
-        clientBottom: Float,
-        clientWidth: Float,
-        clientHeight: Float,
-        colorInt: Int
-    ) {
-        _uiState.update {
-            it.copy(
-                selectedPdfText = null,
-                selectionQuads = emptyList(),
-                selectionAnchor = SelectionAnchor(
-                    clientX = clientX,
-                    clientY = clientY,
-                    clientBottom = clientBottom,
-                    clientWidth = clientWidth,
-                    clientHeight = clientHeight
-                ),
-                isSelectionActionBarVisible = true,
-                showTextSelectionToolbar = true,
-                editingHighlightId = highlightId,
-                editingHighlightColor = colorInt
-            )
-        }
-    }
-
+    // Text Selection & Sticky Notes Methods
     fun onTextSelected(text: String, pageNumber: Int) {
         val trimmed = text.trim()
         if (trimmed.isEmpty()) {
-            _uiState.update {
-                it.copy(
-                    selectedPdfText = null,
-                    showTextSelectionToolbar = false,
-                    isSelectionActionBarVisible = false
-                )
-            }
+            _uiState.update { it.copy(selectedPdfText = null, showTextSelectionToolbar = false) }
         } else {
             _uiState.update {
                 it.copy(
                     selectedPdfText = trimmed,
                     selectionPageNumber = if (pageNumber > 0) pageNumber else it.currentPage,
-                    showTextSelectionToolbar = true,
-                    isSelectionActionBarVisible = true
+                    showTextSelectionToolbar = true
                 )
             }
         }
@@ -692,154 +595,13 @@ class PdfViewModel(
         _uiState.update {
             it.copy(
                 selectedPdfText = null,
-                showTextSelectionToolbar = false,
-                isSelectionActionBarVisible = false,
-                selectionQuads = emptyList(),
-                editingHighlightId = null,
-                editingHighlightColor = null
+                showTextSelectionToolbar = false
             )
         }
-        sendJsCommand("""
-            (function() {
-                if (typeof window.removeTextSelectionAndHandles === 'function') {
-                    window.removeTextSelectionAndHandles();
-                } else if (window.getSelection) {
-                    window.getSelection().removeAllRanges();
-                }
-            })();
-        """.trimIndent())
+        sendJsCommand("if (window.getSelection) { window.getSelection().removeAllRanges(); }")
     }
 
-    fun applyHighlightColor(colorInt: Int) {
-        val state = _uiState.value
-        val pdfPath = state.currentPdfPath ?: ""
-        val editingId = state.editingHighlightId
-
-        val colorHex = String.format("#%06X", (0xFFFFFF and colorInt))
-
-        if (editingId != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val existing = pdfHighlightDao.getById(editingId)
-                    if (existing != null) {
-                        val updated = existing.copy(
-                            color = colorInt,
-                            updatedAt = System.currentTimeMillis()
-                        )
-                        pdfHighlightDao.update(updated)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            sendJsCommand("""
-                (function() {
-                    if (typeof window.updateHighlightElementColor === 'function') {
-                        window.updateHighlightElementColor($editingId, '$colorHex');
-                    }
-                    if (typeof window.removeTextSelectionAndHandles === 'function') {
-                        window.removeTextSelectionAndHandles();
-                    }
-                })();
-            """.trimIndent())
-
-            _uiState.update {
-                it.copy(
-                    isSelectionActionBarVisible = false,
-                    showTextSelectionToolbar = false,
-                    editingHighlightId = null,
-                    editingHighlightColor = null
-                )
-            }
-            return
-        }
-
-        val text = state.selectedPdfText ?: return
-        val page = state.selectionPageNumber
-        val quads = state.selectionQuads
-
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val quadsJson = try {
-                    Json.encodeToString(quads)
-                } catch (e: Exception) {
-                    "[]"
-                }
-                val maxSort = pdfHighlightDao.getMaxSortIndexForPage(pdfPath, page) ?: 0
-                val highlight = PdfHighlight(
-                    pdfPath = pdfPath,
-                    pageNumber = page,
-                    selectedText = text,
-                    color = colorInt,
-                    quads = quadsJson,
-                    sortIndex = maxSort + 1
-                )
-                val newId = pdfHighlightDao.insert(highlight)
-
-                withContext(Dispatchers.Main) {
-                    sendJsCommand("""
-                        (function() {
-                            if (typeof window.renderSingleHighlight === 'function') {
-                                window.renderSingleHighlight($newId, $page, '$colorHex', $quadsJson);
-                            } else if (typeof window.applyHighlightToSelection === 'function') {
-                                window.applyHighlightToSelection('$colorHex');
-                            }
-                            if (typeof window.removeTextSelectionAndHandles === 'function') {
-                                window.removeTextSelectionAndHandles();
-                            }
-                        })();
-                    """.trimIndent())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        _uiState.update {
-            it.copy(
-                selectedPdfText = null,
-                selectionQuads = emptyList(),
-                isSelectionActionBarVisible = false,
-                showTextSelectionToolbar = false,
-                editingHighlightId = null,
-                editingHighlightColor = null
-            )
-        }
-    }
-
-    fun deleteCurrentHighlight() {
-        val editingId = _uiState.value.editingHighlightId ?: return
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                pdfHighlightDao.deleteById(editingId)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        sendJsCommand("""
-            (function() {
-                if (typeof window.removeHighlightElement === 'function') {
-                    window.removeHighlightElement($editingId);
-                }
-                if (typeof window.removeTextSelectionAndHandles === 'function') {
-                    window.removeTextSelectionAndHandles();
-                }
-            })();
-        """.trimIndent())
-
-        _uiState.update {
-            it.copy(
-                isSelectionActionBarVisible = false,
-                showTextSelectionToolbar = false,
-                editingHighlightId = null,
-                editingHighlightColor = null
-            )
-        }
-    }
-
-    fun highlightSelectedText(context: Context, colorHex: String = "#FFFF98") {
+    fun highlightSelectedText(context: Context, colorHex: String = "#FFEB3B") {
         val selectedText = _uiState.value.selectedPdfText ?: return
         val page = _uiState.value.selectionPageNumber
 
@@ -857,7 +619,6 @@ class PdfViewModel(
                 hasUnsavedChanges = true,
                 textSelectionHighlightColor = colorHex,
                 showTextSelectionToolbar = false,
-                isSelectionActionBarVisible = false,
                 selectedPdfText = null
             )
         }
@@ -866,9 +627,17 @@ class PdfViewModel(
             (function() {
                 if (typeof window.applyHighlightToSelection === 'function') {
                     window.applyHighlightToSelection('$colorHex');
-                }
-                if (typeof window.removeTextSelectionAndHandles === 'function') {
-                    window.removeTextSelectionAndHandles();
+                } else {
+                    if (typeof PDFViewerApplication !== 'undefined' && PDFViewerApplication.pdfViewer) {
+                        PDFViewerApplication.pdfViewer.annotationEditorMode = { mode: 9 };
+                        if (PDFViewerApplication.eventBus) {
+                            PDFViewerApplication.eventBus.dispatch('switchannotationeditorparams', {
+                                source: window,
+                                type: 7,
+                                value: '$colorHex'
+                            });
+                        }
+                    }
                 }
             })();
         """.trimIndent())
@@ -2838,14 +2607,11 @@ class PdfViewModel(
     }
 }
 
-class PdfViewModelFactory(
-    private val recentPdfDao: RecentPdfDao,
-    private val pdfHighlightDao: PdfHighlightDao
-) : ViewModelProvider.Factory {
+class PdfViewModelFactory(private val recentPdfDao: RecentPdfDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PdfViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return PdfViewModel(recentPdfDao, pdfHighlightDao) as T
+            return PdfViewModel(recentPdfDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
