@@ -42,6 +42,28 @@ class MainActivity : ComponentActivity() {
     // Initialize state and check welcome screen status
     viewModel.initialize(applicationContext)
 
+    // Clean up expired audio cache entries (older than 30 days)
+    lifecycleScope.launch(Dispatchers.IO) {
+      try {
+        val cachedAudioDao = database.cachedAudioDao()
+        val cutoffTime = System.currentTimeMillis() - (30L * 24 * 60 * 60 * 1000L)
+        val expiredEntries = cachedAudioDao.getExpiredEntries(cutoffTime)
+        for (entry in expiredEntries) {
+          try {
+            val file = File(entry.localFilePath)
+            if (file.exists()) {
+              file.delete()
+            }
+            cachedAudioDao.deleteById(entry.id)
+          } catch (e: Exception) {
+            e.printStackTrace()
+          }
+        }
+      } catch (e: Exception) {
+        e.printStackTrace()
+      }
+    }
+
     // Handle incoming intent if the app is launched to view a PDF file
     handleIntent(intent, viewModel)
 

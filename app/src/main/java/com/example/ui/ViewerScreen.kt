@@ -1,5 +1,7 @@
 package com.example.ui
 
+import com.example.data.CachedAudio
+import com.example.data.PdfDatabase
 import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
@@ -201,6 +203,17 @@ fun ViewerScreen(
     var isAudioLoading by remember { mutableStateOf(false) }
 
     val mediaPlayer = remember { android.media.MediaPlayer() }
+    val audioCacheDao = remember { PdfDatabase.getDatabase(context.applicationContext).cachedAudioDao() }
+
+    fun hashUrl(urlString: String): String {
+        return try {
+            val digest = java.security.MessageDigest.getInstance("MD5")
+            val bytes = digest.digest(urlString.toByteArray(Charsets.UTF_8))
+            bytes.joinToString("") { "%02x".format(it) }
+        } catch (e: Exception) {
+            urlString.hashCode().toString()
+        }
+    }
 
     fun restoreGermanUmlauts(text: String): String {
         try {
@@ -288,45 +301,137 @@ fun ViewerScreen(
         isAudioLoading = false
     }
 
-    fun playAudio(url: String) {
-        try {
-            activeAudioUrl = url
-            audioWordName = extractWordFromUrl(url)
-            isAudioLoading = true
-            isAudioPlaying = false
-
-            mediaPlayer.reset()
-            mediaPlayer.setDataSource(context, Uri.parse(url))
-            
-            mediaPlayer.setOnPreparedListener { mp ->
+    fun setupMediaPlayerListeners(targetUrl: String) {
+        mediaPlayer.setOnPreparedListener { mp ->
+            if (activeAudioUrl == targetUrl) {
                 isAudioLoading = false
                 isAudioPlaying = true
                 mp.start()
             }
-            
-            mediaPlayer.setOnCompletionListener {
-                isAudioPlaying = false
-                // Auto-dismiss the mini player after 1.5 seconds to keep the screen clear for the PDF
-                coroutineScope.launch {
-                    delay(1500)
-                    if (!mediaPlayer.isPlaying && activeAudioUrl == url) {
-                        stopAndDismissAudio()
-                    }
+        }
+        
+        mediaPlayer.setOnCompletionListener {
+            isAudioPlaying = false
+            // Auto-dismiss the mini player after 1.5 seconds to keep the screen clear for the PDF
+            coroutineScope.launch {
+                delay(1500)
+                if (!mediaPlayer.isPlaying && activeAudioUrl == targetUrl) {
+                    stopAndDismissAudio()
                 }
             }
-            
-            mediaPlayer.setOnErrorListener { mp, what, extra ->
+        }
+        
+        mediaPlayer.setOnErrorListener { _, _, _ ->
+            if (activeAudioUrl == targetUrl) {
                 isAudioLoading = false
                 isAudioPlaying = false
                 Toast.makeText(context, "تعذر تشغيل الصوت. قد يكون الرابط غير صالح أو لا يوجد اتصال بالإنترنت.", Toast.LENGTH_LONG).show()
-                true
             }
-            
-            mediaPlayer.prepareAsync()
-        } catch (e: Exception) {
-            isAudioLoading = false
-            isAudioPlaying = false
-            Toast.makeText(context, "خطأ أثناء تشغيل الصوت: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            true
+        }
+    }
+
+    fun playAudio(url: String) {
+        activeAudioUrl = url
+        val word = extractWordFromUrl(url)
+        audioWordName = word
+        isAudioLoading = true
+        isAudioPlaying = false
+
+        coroutineScope.launch {
+            try {
+                // 1. Check local Room DB cache and verify file exists on disk
+                val cachedEntry = withContext(Dispatchers.IO) {
+                    try {
+                        audioCacheDao.getBySourceUrl(url)
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+
+                if (cachedEntry != null) {
+                    val localFile = File(cachedEntry.localFilePath)
+                    if (localFile.exists() && localFile.length() > 0) {
+                        // Play immediately from local cache (works offline / airplane mode)
+                        try {
+                            mediaPlayer.reset()
+                            mediaPlayer.setDataSource(localFile.absolutePath)
+                            setupMediaPlayerListeners(url)
+                            mediaPlayer.prepareAsync()
+                            return@launch
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        // File is missing on disk, remove stale record
+                        withContext(Dispatchers.IO) {
+                            try {
+                                audioCacheDao.deleteById(cachedEntry.id)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                }
+
+                // 2. Stream audio from original URL so user has instant feedback
+                try {
+                    mediaPlayer.reset()
+                    mediaPlayer.setDataSource(context, Uri.parse(url))
+                    setupMediaPlayerListeners(url)
+                    mediaPlayer.prepareAsync()
+                } catch (e: Exception) {
+                    isAudioLoading = false
+                    isAudioPlaying = false
+                    Toast.makeText(context, "خطأ أثناء تشغيل الصوت: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+
+                // 3. Concurrently download and save the file in cache directory
+                coroutineScope.launch(Dispatchers.IO) {
+                    try {
+                        val pronunciationsDir = File(context.cacheDir, "pronunciations")
+                        if (!pronunciationsDir.exists()) {
+                            pronunciationsDir.mkdirs()
+                        }
+                        val fileName = "${hashUrl(url)}.mp3"
+                        val destinationFile = File(pronunciationsDir, fileName)
+
+                        val connection = java.net.URI(url).toURL().openConnection() as java.net.HttpURLConnection
+                        connection.connectTimeout = 15000
+                        connection.readTimeout = 15000
+                        connection.instanceFollowRedirects = true
+                        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Android; Mobile)")
+                        connection.connect()
+
+                        var isDownloaded = false
+                        if (connection.responseCode in 200..299) {
+                            connection.inputStream.use { input ->
+                                FileOutputStream(destinationFile).use { output ->
+                                    input.copyTo(output)
+                                }
+                            }
+                            isDownloaded = destinationFile.exists() && destinationFile.length() > 0
+                        }
+                        connection.disconnect()
+
+                        if (isDownloaded) {
+                            val entity = CachedAudio(
+                                word = word,
+                                sourceUrl = url,
+                                localFilePath = destinationFile.absolutePath,
+                                savedAt = System.currentTimeMillis()
+                            )
+                            audioCacheDao.insert(entity)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            } catch (e: Exception) {
+                isAudioLoading = false
+                isAudioPlaying = false
+                Toast.makeText(context, "خطأ أثناء تشغيل الصوت: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
