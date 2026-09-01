@@ -2743,7 +2743,7 @@ fun PdfWebView(
                                                 setTimeout(reportCurrentScale, 800);
                                             }
 
-                                            // 4b. Completely disable PDF.js History Manager and Hash Updates to prevent scroll jumps
+                                             // 4b. Completely disable PDF.js History Manager and Hash Updates to prevent scroll jumps
                                             try {
                                                 PDFViewerApplication.preferences.set('disableHistory', true);
                                             } catch (e) {}
@@ -2791,45 +2791,6 @@ fun PdfWebView(
                                                     PDFViewerApplication.pdfHistory._updateViewarea = function() {};
                                                 }
                                             }
-
-                                            // Diagnostics script for scroll jump and resize events
-                                            (function() {
-                                                function log(msg) {
-                                                    console.log('JUMPDEBUG: ' + msg);
-                                                }
-                                                var vc = document.getElementById('viewerContainer');
-                                                if (vc) {
-                                                    var lastTop = vc.scrollTop;
-                                                    setInterval(function() {
-                                                        var diff = vc.scrollTop - lastTop;
-                                                        if (Math.abs(diff) > 3) {
-                                                            log('SCROLL JUMP ' + Math.round(lastTop) + ' -> ' + Math.round(vc.scrollTop) + ' delta=' + Math.round(diff));
-                                                        }
-                                                        lastTop = vc.scrollTop;
-                                                    }, 150);
-
-                                                    if (window.ResizeObserver) {
-                                                        var ro = new ResizeObserver(function(entries) {
-                                                            entries.forEach(function(entry) {
-                                                                log('RESIZE ' + (entry.target.className || entry.target.id) + ' -> ' + Math.round(entry.contentRect.height) + 'px');
-                                                            });
-                                                        });
-                                                        document.querySelectorAll('.page').forEach(function(p) { ro.observe(p); });
-                                                    }
-
-                                                    window.addEventListener('resize', function() {
-                                                        log('WINDOW RESIZE EVENT FIRED');
-                                                    });
-
-                                                    if (typeof PDFViewerApplication !== 'undefined' && PDFViewerApplication.pdfViewer) {
-                                                        var origUpdate = PDFViewerApplication.pdfViewer.update.bind(PDFViewerApplication.pdfViewer);
-                                                        PDFViewerApplication.pdfViewer.update = function() {
-                                                            log('pdfViewer.update() CALLED');
-                                                            return origUpdate();
-                                                        };
-                                                    }
-                                                }
-                                            })();
                                         });
                                     } else {
                                         setTimeout(checkPDFjs, 150);
@@ -2856,7 +2817,7 @@ fun PdfWebView(
                                         group.className = 'custom-highlight-group';
                                         group.setAttribute('data-highlight-id', id);
                                         group.setAttribute('data-color', colorHex);
-                                        group.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: auto; cursor: pointer;';
+                                        group.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; -webkit-tap-highlight-color: transparent;';
 
                                         var parsedQuads = (typeof quads === 'string') ? JSON.parse(quads) : quads;
                                         if (Array.isArray(parsedQuads)) {
@@ -2865,7 +2826,7 @@ fun PdfWebView(
                                                 if (!q || q.w <= 0 || q.h <= 0) continue;
                                                 var span = document.createElement('div');
                                                 span.className = 'custom-highlight-rect';
-                                                span.style.cssText = 'position: absolute;' +
+                                                span.style.cssText = 'position: absolute; box-sizing: border-box; margin: 0; padding: 0; border: none;' +
                                                     'left: ' + (q.x * 100) + '%;' +
                                                     'top: ' + (q.y * 100) + '%;' +
                                                     'width: ' + (q.w * 100) + '%;' +
@@ -2874,33 +2835,37 @@ fun PdfWebView(
                                                     'opacity: 0.38;' +
                                                     'mix-blend-mode: multiply;' +
                                                     'border-radius: 2px;' +
-                                                    'pointer-events: auto;';
+                                                    'pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: transparent;';
+                                                
+                                                (function(currentSpan, highlightId, cHex) {
+                                                    currentSpan.addEventListener('click', function(ev) {
+                                                        ev.stopPropagation();
+                                                        ev.preventDefault();
+                                                        try {
+                                                            var dpr = window.devicePixelRatio || 1;
+                                                            var bound = currentSpan.getBoundingClientRect();
+                                                            var cleanHex = cHex.replace('#', '');
+                                                            var cInt = parseInt('FF' + cleanHex, 16);
+                                                            if (typeof AndroidBridge !== 'undefined' && AndroidBridge.onHighlightClicked) {
+                                                                AndroidBridge.onHighlightClicked(
+                                                                    highlightId,
+                                                                    Math.round(bound.left * dpr),
+                                                                    Math.round(bound.top * dpr),
+                                                                    Math.round(bound.bottom * dpr),
+                                                                    Math.round(bound.width * dpr),
+                                                                    Math.round(bound.height * dpr),
+                                                                    cInt
+                                                                );
+                                                            }
+                                                        } catch(e) {
+                                                            console.error("Highlight click error: " + e.message, e.stack);
+                                                        }
+                                                    });
+                                                })(span, id, colorHex);
+
                                                 group.appendChild(span);
                                             }
                                         }
-
-                                        group.addEventListener('click', function(ev) {
-                                            ev.stopPropagation();
-                                            try {
-                                                var dpr = window.devicePixelRatio || 1;
-                                                var bound = group.getBoundingClientRect();
-                                                var cleanHex = colorHex.replace('#', '');
-                                                var cInt = parseInt('FF' + cleanHex, 16);
-                                                if (typeof AndroidBridge !== 'undefined' && AndroidBridge.onHighlightClicked) {
-                                                    AndroidBridge.onHighlightClicked(
-                                                        id,
-                                                        Math.round(bound.left * dpr),
-                                                        Math.round(bound.top * dpr),
-                                                        Math.round(bound.bottom * dpr),
-                                                        Math.round(bound.width * dpr),
-                                                        Math.round(bound.height * dpr),
-                                                        cInt
-                                                    );
-                                                }
-                                            } catch(e) {
-                                                console.error("Highlight click error: " + e.message, e.stack);
-                                            }
-                                        });
 
                                         highlightLayer.appendChild(group);
                                     } catch(e) {
@@ -2909,42 +2874,46 @@ fun PdfWebView(
                                 };
 
                                 window.reapplyHighlightsForPage = function(pageNumber) {
-                                    try {
-                                        var pageElem = document.querySelector('.page[data-page-number="' + pageNumber + '"]');
-                                        if (!pageElem) return;
+                                    requestAnimationFrame(function() {
+                                        try {
+                                            var pageElem = document.querySelector('.page[data-page-number="' + pageNumber + '"]');
+                                            if (!pageElem) return;
 
-                                        var highlightLayer = pageElem.querySelector('.custom-pdf-highlights-layer');
-                                        if (!highlightLayer) {
-                                            highlightLayer = document.createElement('div');
-                                            highlightLayer.className = 'custom-pdf-highlights-layer';
-                                            highlightLayer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4;';
-                                            pageElem.appendChild(highlightLayer);
-                                        }
-
-                                        highlightLayer.innerHTML = '';
-                                        for (var k in window.storedHighlightsMap) {
-                                            var item = window.storedHighlightsMap[k];
-                                            if (item && item.pageNumber == pageNumber) {
-                                                window.renderHighlightElement(highlightLayer, item);
+                                            var highlightLayer = pageElem.querySelector('.custom-pdf-highlights-layer');
+                                            if (!highlightLayer) {
+                                                highlightLayer = document.createElement('div');
+                                                highlightLayer.className = 'custom-pdf-highlights-layer';
+                                                highlightLayer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; border: none;';
+                                                pageElem.appendChild(highlightLayer);
                                             }
+
+                                            highlightLayer.innerHTML = '';
+                                            for (var k in window.storedHighlightsMap) {
+                                                var item = window.storedHighlightsMap[k];
+                                                if (item && item.pageNumber == pageNumber) {
+                                                    window.renderHighlightElement(highlightLayer, item);
+                                                }
+                                            }
+                                        } catch(e) {
+                                            console.error("reapplyHighlightsForPage error for page " + pageNumber + ": " + e.message, e.stack);
                                         }
-                                    } catch(e) {
-                                        console.error("reapplyHighlightsForPage error for page " + pageNumber + ": " + e.message, e.stack);
-                                    }
+                                    });
                                 };
 
                                 window.reapplyAllHighlights = function() {
-                                    try {
-                                        var pages = document.querySelectorAll('.page');
-                                        pages.forEach(function(pageElem) {
-                                            var pageNum = parseInt(pageElem.getAttribute('data-page-number'), 10);
-                                            if (pageNum) {
-                                                window.reapplyHighlightsForPage(pageNum);
-                                            }
-                                        });
-                                    } catch(e) {
-                                        console.error("reapplyAllHighlights error: " + e.message, e.stack);
-                                    }
+                                    requestAnimationFrame(function() {
+                                        try {
+                                            var pages = document.querySelectorAll('.page');
+                                            pages.forEach(function(pageElem) {
+                                                var pageNum = parseInt(pageElem.getAttribute('data-page-number'), 10);
+                                                if (pageNum) {
+                                                    window.reapplyHighlightsForPage(pageNum);
+                                                }
+                                            });
+                                        } catch(e) {
+                                            console.error("reapplyAllHighlights error: " + e.message, e.stack);
+                                        }
+                                    });
                                 };
 
                                 window.renderSingleHighlight = function(id, pageNumber, colorHex, quads) {
@@ -3080,56 +3049,6 @@ fun PdfWebView(
 
                                 window.applyHighlightToSelection = function(colorHex) {
                                     try {
-                                        var sel = window.getSelection();
-                                        var range = null;
-                                        if (sel && !sel.isCollapsed && sel.rangeCount > 0) {
-                                            range = sel.getRangeAt(0);
-                                        } else if (window.lastSelectionRange) {
-                                            range = window.lastSelectionRange;
-                                        }
-
-                                        if (!range) return false;
-
-                                        var container = range.commonAncestorContainer;
-                                        var pageElem = (container.nodeType === 1 ? container : container.parentElement).closest('.page');
-                                        if (!pageElem) {
-                                            var activePageNum = 1;
-                                            try {
-                                                if (typeof PDFViewerApplication !== 'undefined' && PDFViewerApplication.pdfViewer) {
-                                                    activePageNum = PDFViewerApplication.pdfViewer.currentPageNumber || 1;
-                                                }
-                                            } catch(e) {}
-                                            pageElem = document.querySelector('.page[data-page-number="' + activePageNum + '"]') || document.querySelector('.page');
-                                        }
-
-                                        if (!pageElem) return false;
-
-                                        var pageNum = parseInt(pageElem.getAttribute('data-page-number') || '1', 10);
-                                        var rects = range.getClientRects();
-                                        var quads = [];
-                                        var pageRect = pageElem.getBoundingClientRect();
-                                        if (pageRect && rects && rects.length > 0 && pageRect.width > 0 && pageRect.height > 0) {
-                                            for (var i = 0; i < rects.length; i++) {
-                                                var rect = rects[i];
-                                                if (rect.width > 0.5 && rect.height > 0.5) {
-                                                    var qx = Math.max(0, Math.min(1, (rect.left - pageRect.left) / pageRect.width));
-                                                    var qy = Math.max(0, Math.min(1, (rect.top - pageRect.top) / pageRect.height));
-                                                    var qw = Math.max(0, Math.min(1 - qx, rect.width / pageRect.width));
-                                                    var qh = Math.max(0, Math.min(1 - qy, rect.height / pageRect.height));
-                                                    if (qw > 0.001 && qh > 0.001) {
-                                                        quads.push({
-                                                            x: qx,
-                                                            y: qy,
-                                                            w: qw,
-                                                            h: qh
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        var tempId = Date.now();
-                                        window.renderSingleHighlight(tempId, pageNum, colorHex, quads);
                                         window.removeTextSelectionAndHandles();
                                         return true;
                                     } catch(err) {
