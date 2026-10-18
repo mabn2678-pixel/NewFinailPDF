@@ -268,20 +268,54 @@ fun ViewerScreen(
     fun extractWordFromUrl(url: String): String {
         try {
             val uri = Uri.parse(url)
-            val queryText = uri.getQueryParameter("q") ?: uri.getQueryParameter("text")
-            val baseWord = if (queryText != null) {
-                Uri.decode(queryText).trim()
-            } else {
-                val lastSegment = uri.lastPathSegment ?: return "نطق الكلمة"
-                val cleanName = if (lastSegment.contains(".")) {
-                    lastSegment.substringBeforeLast(".")
-                } else {
-                    lastSegment
-                }
-                val decoded = Uri.decode(cleanName)
-                decoded.replace("_", " ").replace("-", " ").trim()
+            val queryText = uri.getQueryParameter("q") 
+                ?: uri.getQueryParameter("text") 
+                ?: uri.getQueryParameter("word") 
+                ?: uri.getQueryParameter("term")
+            if (!queryText.isNullOrBlank()) {
+                return Uri.decode(queryText).trim()
             }
-            return restoreGermanUmlauts(baseWord)
+
+            // Check if URL has a /word/{word} or /pronunciation/{word} path
+            val pathSegments = uri.pathSegments
+            if (pathSegments != null) {
+                val wordIdx = pathSegments.indexOfFirst { it.equals("word", ignoreCase = true) || it.equals("words", ignoreCase = true) }
+                if (wordIdx != -1 && wordIdx + 1 < pathSegments.size) {
+                    val w = Uri.decode(pathSegments[wordIdx + 1]).substringBefore(".").trim()
+                    if (w.isNotBlank()) return w
+                }
+            }
+
+            val lastSegment = uri.lastPathSegment ?: return "نطق الكلمة"
+            var cleanName = if (lastSegment.contains(".")) {
+                lastSegment.substringBeforeLast(".")
+            } else {
+                lastSegment
+            }
+            cleanName = Uri.decode(cleanName).trim()
+
+            // Remove typical dictionary prefixes/suffixes, e.g. "En-us-word" -> "word", "word__gb_1" -> "word"
+            cleanName = cleanName.replace(Regex("^(en[-_]|en[-_]us[-_]|en[-_]uk[-_]|en[-_]gb[-_])", RegexOption.IGNORE_CASE), "")
+            cleanName = cleanName.replace(Regex("(__gb_\\d+|__us_\\d+|_gb_\\d+|_us_\\d+|_\\d+)$", RegexOption.IGNORE_CASE), "")
+            cleanName = cleanName.replace("_", " ").replace("-", " ").trim()
+
+            // Check if this is an internal dictionary audio identifier that shouldn't be shown to the user as a truncated word
+            // E.g. "ukdocud029" -> "ukdocud", "ukmanuf019" -> "ukmanuf", "eus71387" -> "eus", "us123" -> "us"
+            val isOpaqueId = cleanName.matches(Regex("^(uk[a-z]{3,7}|us[a-z]{0,7}|eus)\\d*$", RegexOption.IGNORE_CASE)) ||
+                             cleanName.equals("eus", ignoreCase = true) ||
+                             cleanName.matches(Regex("^[0-9_\\-\\s]+$"))
+
+            if (isOpaqueId) {
+                return "نطق الكلمة"
+            }
+
+            // Only apply German umlaut restoration if the URL is explicitly German
+            val isGerman = url.contains("/german/", ignoreCase = true) || 
+                           url.contains("de_pron", ignoreCase = true) || 
+                           url.contains("lang=de", ignoreCase = true) || 
+                           url.contains(".de/", ignoreCase = true)
+
+            return if (isGerman) restoreGermanUmlauts(cleanName) else cleanName
         } catch (e: Exception) {
             return "نطق الكلمة"
         }
@@ -331,9 +365,14 @@ fun ViewerScreen(
         }
     }
 
-    fun playAudio(url: String) {
+    fun playAudio(url: String, explicitWordName: String? = null) {
         activeAudioUrl = url
-        val word = extractWordFromUrl(url)
+        val cleanExplicit = explicitWordName?.trim()
+        val word = if (!cleanExplicit.isNullOrBlank() && cleanExplicit != "نطق الكلمة" && cleanExplicit != "كلمة غير معروفة") {
+            cleanExplicit
+        } else {
+            extractWordFromUrl(url)
+        }
         audioWordName = word
         isAudioLoading = true
         isAudioPlaying = false
@@ -447,7 +486,7 @@ fun ViewerScreen(
                 }
             }
         } catch (e: Exception) {
-            activeAudioUrl?.let { playAudio(it) }
+            activeAudioUrl?.let { playAudio(it, audioWordName) }
         }
     }
 
@@ -461,7 +500,7 @@ fun ViewerScreen(
                 isAudioPlaying = true
             }
         } catch (e: Exception) {
-            activeAudioUrl?.let { playAudio(it) }
+            activeAudioUrl?.let { playAudio(it, audioWordName) }
         }
     }
 
@@ -671,7 +710,7 @@ fun ViewerScreen(
                         onScrollEvent = {
                             pageIndicatorTrigger = System.currentTimeMillis()
                         },
-                        onAudioLinkClicked = { url -> playAudio(url) },
+                        onAudioLinkClicked = { url, word -> playAudio(url, word) },
                         onBrowsingStateChanged = { browsing ->
                             if (!browsing) {
                                 if (browsingUrl == null) {
@@ -1508,7 +1547,7 @@ fun PdfWebView(
     onWebViewCreated: (WebView) -> Unit,
     onSingleTap: () -> Unit,
     onScrollEvent: () -> Unit,
-    onAudioLinkClicked: (String) -> Unit,
+    onAudioLinkClicked: (String, String?) -> Unit,
     onBrowsingStateChanged: (Boolean) -> Unit,
     onExternalLinkClicked: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -1652,7 +1691,7 @@ fun PdfWebView(
                                       url.contains("translate.google", ignoreCase = true) ||
                                       url.contains("google.com/speech", ignoreCase = true)
                         if (isAudio) {
-                            onAudioLinkClicked(url)
+                            onAudioLinkClicked(url, null)
                             return true
                         }
                         if (url.startsWith("http://") || url.startsWith("https://")) {
@@ -1680,7 +1719,7 @@ fun PdfWebView(
                                       url.contains("translate.google", ignoreCase = true) ||
                                       url.contains("google.com/speech", ignoreCase = true)
                         if (isAudio) {
-                            onAudioLinkClicked(url)
+                            onAudioLinkClicked(url, null)
                             return true
                         }
                         if (url.startsWith("http://") || url.startsWith("https://")) {
@@ -2586,7 +2625,130 @@ fun PdfWebView(
                                                 }
                                             }, true);
 
-                                            // Capture-phase link interceptor to prevent WebView navigation for audio URLs
+                                            // Capture-phase link interceptor to prevent WebView navigation for audio URLs and extract actual word
+                                            var extractWordFromClick = function(e, anchor) {
+                                                try {
+                                                    var isGeneric = function(t) {
+                                                        if (!t) return true;
+                                                        var clean = t.trim().toLowerCase();
+                                                        return clean === 'forvo' || clean === 'listen' || clean === 'audio' ||
+                                                               clean === 'sound' || clean === 'play' || clean === 'pronounce' ||
+                                                               clean === 'pronunciation' || clean === 'uk' || clean === 'us' ||
+                                                               clean === 'gb' || clean === 'en' || clean === 'click' ||
+                                                               clean === 'click here' || clean === 'نطق' || clean === 'استمع' ||
+                                                               clean === 'صوت' || clean === 'تشغيل' || clean === 'الكلمة' ||
+                                                               clean === 'رابط' || clean === 'link';
+                                                    };
+
+                                                    var cleanWord = function(w) {
+                                                        if (!w) return '';
+                                                        var trimmed = w.trim();
+                                                        trimmed = trimmed.replace(/^\d+[\.\-\s)]+/, '');
+                                                        trimmed = trimmed.replace(/^[^a-zA-Z0-9\u0600-\u06FF\u00C0-\u024F]+|[^a-zA-Z0-9\u0600-\u06FF\u00C0-\u024F]+$/g, '');
+                                                        return trimmed.trim();
+                                                    };
+
+                                                    // 1. Direct text on anchor itself
+                                                    var direct = (anchor.innerText || anchor.textContent || anchor.getAttribute('aria-label') || anchor.title || '').trim();
+                                                    direct = cleanWord(direct);
+                                                    if (direct && !isGeneric(direct)) {
+                                                        return direct;
+                                                    }
+
+                                                    // 2. Look for textLayer in the same page
+                                                    var page = anchor.closest('.page');
+                                                    if (page) {
+                                                        var textLayer = page.querySelector('.textLayer');
+                                                        if (textLayer) {
+                                                            var aRect = anchor.getBoundingClientRect();
+                                                            var spans = textLayer.querySelectorAll('span');
+                                                            var overlapping = [];
+                                                            var sameLine = [];
+
+                                                            for (var i = 0; i < spans.length; i++) {
+                                                                var sp = spans[i];
+                                                                var sRect = sp.getBoundingClientRect();
+                                                                var txt = (sp.textContent || '').trim();
+                                                                if (!txt) continue;
+
+                                                                var vOverlap = Math.max(0, Math.min(aRect.bottom, sRect.bottom) - Math.max(aRect.top, sRect.top));
+                                                                var hOverlap = Math.max(0, Math.min(aRect.right, sRect.right) - Math.max(aRect.left, sRect.left));
+
+                                                                if (vOverlap >= Math.min(sRect.height * 0.3, 3) && hOverlap > 1) {
+                                                                    overlapping.push({ text: txt, left: sRect.left, top: sRect.top, right: sRect.right });
+                                                                }
+
+                                                                var midA = (aRect.top + aRect.bottom) / 2;
+                                                                if (midA >= sRect.top - 6 && midA <= sRect.bottom + 6) {
+                                                                    sameLine.push({ text: txt, left: sRect.left, top: sRect.top, right: sRect.right });
+                                                                }
+                                                            }
+
+                                                            var joinSpans = function(list) {
+                                                                if (!list || list.length === 0) return '';
+                                                                list.sort(function(a, b) {
+                                                                    if (Math.abs(a.top - b.top) > 5) return a.top - b.top;
+                                                                    return a.left - b.left;
+                                                                });
+                                                                var combined = '';
+                                                                for (var j = 0; j < list.length; j++) {
+                                                                    var item = list[j];
+                                                                    if (j > 0) {
+                                                                        var prev = list[j - 1];
+                                                                        if (item.left - prev.right > 2) {
+                                                                            combined += ' ';
+                                                                        }
+                                                                    }
+                                                                    combined += item.text;
+                                                                }
+                                                                return cleanWord(combined);
+                                                            };
+
+                                                            if (overlapping.length > 0) {
+                                                                var overText = joinSpans(overlapping);
+                                                                if (overText && !isGeneric(overText)) {
+                                                                    return overText;
+                                                                }
+                                                            }
+
+                                                            if (sameLine.length > 0) {
+                                                                var englishSpans = [];
+                                                                for (var k = 0; k < sameLine.length; k++) {
+                                                                    var cand = sameLine[k];
+                                                                    var cText = cleanWord(cand.text);
+                                                                    if (!cText || isGeneric(cText)) continue;
+                                                                    if (/[a-zA-Z]/.test(cText)) {
+                                                                        englishSpans.push(cand);
+                                                                    }
+                                                                }
+                                                                if (englishSpans.length > 0) {
+                                                                    var engText = joinSpans(englishSpans);
+                                                                    if (engText && !isGeneric(engText)) {
+                                                                        return engText;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    // 3. Fallback: elementsFromPoint at click coordinates
+                                                    if (document.elementsFromPoint && e.clientX && e.clientY) {
+                                                        var elems = document.elementsFromPoint(e.clientX, e.clientY);
+                                                        for (var m = 0; m < elems.length; m++) {
+                                                            var el = elems[m];
+                                                            if (el === anchor || anchor.contains(el)) continue;
+                                                            var elText = cleanWord(el.innerText || el.textContent || '');
+                                                            if (elText && !isGeneric(elText)) {
+                                                                return elText;
+                                                            }
+                                                        }
+                                                    }
+                                                } catch (err) {
+                                                    console.error('Error extracting word from click:', err);
+                                                }
+                                                return '';
+                                            };
+
                                             document.addEventListener('click', function(e) {
                                                 var anchor = e.target.closest('a');
                                                 if (anchor && anchor.href) {
@@ -2602,7 +2764,12 @@ fun PdfWebView(
                                                     if (isAudio) {
                                                         e.preventDefault();
                                                         e.stopPropagation();
-                                                        AndroidBridge.onAudioLinkClicked(url);
+                                                        var detectedWord = extractWordFromClick(e, anchor);
+                                                        if (window.AndroidBridge && window.AndroidBridge.onAudioLinkClickedWithWord) {
+                                                            window.AndroidBridge.onAudioLinkClickedWithWord(url, detectedWord);
+                                                        } else if (window.AndroidBridge && window.AndroidBridge.onAudioLinkClicked) {
+                                                            AndroidBridge.onAudioLinkClicked(url);
+                                                        }
                                                         return false;
                                                     }
                                                 }
@@ -2939,7 +3106,14 @@ fun PdfWebView(
                     @android.webkit.JavascriptInterface
                     fun onAudioLinkClicked(url: String) {
                         coroutineScope.launch {
-                            onAudioLinkClicked(url)
+                            onAudioLinkClicked(url, null)
+                        }
+                    }
+
+                    @android.webkit.JavascriptInterface
+                    fun onAudioLinkClickedWithWord(url: String, wordName: String?) {
+                        coroutineScope.launch {
+                            onAudioLinkClicked(url, wordName)
                         }
                     }
 
@@ -5285,7 +5459,7 @@ fun MiniPlayerOverlay(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val displayText = wordName.ifEmpty { "كلمة غير معروفة" }.trim()
+    val displayText = wordName.ifEmpty { "نطق الكلمة" }.trim()
     val textLength = displayText.length
 
     val fontSize = when {
