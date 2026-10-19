@@ -1,9 +1,12 @@
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
+import java.io.File
+import java.net.URI
 
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.google.devtools.ksp)
+  alias(libs.plugins.roborazzi)
   alias(libs.plugins.secrets)
   alias(libs.plugins.google.services)
 }
@@ -13,7 +16,7 @@ android {
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
   defaultConfig {
-    applicationId = "com.aistudio.pdfreader.vzkymq"
+    applicationId = "com.aistudio.pdfreader.ominoi"
     minSdk = 24
     targetSdk = 36
     versionCode = 1
@@ -24,11 +27,11 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
+      val keystorePath = "${rootDir}/my-upload-key.jks"
       storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
+      storePassword = "android"
       keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      keyPassword = "android"
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")
@@ -41,7 +44,7 @@ android {
   buildTypes {
     release {
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       signingConfig = signingConfigs.getByName("release")
     }
@@ -56,10 +59,6 @@ android {
     buildConfig = true
   }
   testOptions { unitTests { isIncludeAndroidResources = true } }
-  dependenciesInfo {
-    includeInApk = false
-    includeInBundle = true
-  }
 }
 
 // Configure the Secrets Gradle Plugin to use .env and .env.example files
@@ -67,7 +66,6 @@ android {
 secrets {
   propertiesFileName = ".env"
   defaultPropertiesFileName = ".env.example"
-  ignoreList.add("FIREBASE_APPCHECK_DEBUG_TOKEN")
 }
 
 googleServices { missingGoogleServicesStrategy = MissingGoogleServicesStrategy.WARN }
@@ -97,25 +95,34 @@ dependencies {
   // implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.room.ktx)
   implementation(libs.androidx.room.runtime)
-  // implementation(libs.coil.compose)
+  implementation(libs.coil.compose)
   implementation(libs.converter.moshi)
   implementation(libs.firebase.ai)
   // Uncomment to use Firestore:
   // implementation(libs.firebase.firestore)
 
-  // Uncomment ALL FOUR of the following dependencies together to use Firebase Auth and Google
-  // Sign-In via Credential Manager:
+  // Firebase Auth with Google Sign-In requires all of the following to be uncommented together.
+  // If you are using Firebase Auth with other providers (e.g. Email/Password), you may only need
+  // firebase-auth.
   // implementation(libs.firebase.auth)
   // implementation(libs.androidx.credentials)
   // implementation(libs.androidx.credentials.play.services)
   // implementation(libs.googleid)
   implementation(libs.firebase.appcheck.recaptcha)
-  implementation(libs.firebase.appcheck.debug)
+  implementation(libs.androidx.camera.camera2)
+  implementation(libs.androidx.camera.lifecycle)
+  implementation(libs.androidx.camera.view)
+  implementation(libs.androidx.camera.core)
+  implementation(libs.accompanist.permissions)
   implementation(libs.kotlinx.coroutines.android)
   implementation(libs.kotlinx.coroutines.core)
+  implementation("com.tom-roush:pdfbox-android:2.0.27.0")
+  implementation("cz.adaptech.tesseract4android:tesseract4android:4.7.0")
+  implementation("com.google.mlkit:text-recognition:16.0.1")
   implementation(libs.logging.interceptor)
   implementation(libs.moshi.kotlin)
   implementation(libs.okhttp)
+  implementation(libs.androidx.security.crypto)
   // implementation(libs.play.services.location)
   implementation(libs.retrofit)
   testImplementation(libs.androidx.compose.ui.test.junit4)
@@ -124,6 +131,9 @@ dependencies {
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.robolectric)
+  testImplementation(libs.roborazzi)
+  testImplementation(libs.roborazzi.compose)
+  testImplementation(libs.roborazzi.junit.rule)
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -133,4 +143,66 @@ dependencies {
   debugImplementation(libs.androidx.compose.ui.tooling)
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
+}
+
+tasks.register("downloadOcrAssets") {
+    val projectDir = layout.projectDirectory.asFile
+    doLast {
+        val tessDataDir = File(projectDir, "src/main/assets/tessdata")
+        if (!tessDataDir.exists()) {
+            tessDataDir.mkdirs()
+        }
+
+        val ocrFiles = listOf(
+            "ara.traineddata" to "https://github.com/tesseract-ocr/tessdata_fast/raw/main/ara.traineddata",
+            "eng.traineddata" to "https://github.com/tesseract-ocr/tessdata_fast/raw/main/eng.traineddata",
+            "deu.traineddata" to "https://github.com/tesseract-ocr/tessdata_fast/raw/main/deu.traineddata"
+        )
+
+        for ((fileName, urlStr) in ocrFiles) {
+            val destFile = File(tessDataDir, fileName)
+            if (!destFile.exists() || destFile.length() == 0L) {
+                println("Downloading OCR asset: $fileName...")
+                try {
+                    URI(urlStr).toURL().openStream().use { input ->
+                        destFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                    println("Downloaded $fileName successfully.")
+                } catch (e: Exception) {
+                    println("Failed to download $fileName: ${e.message}")
+                }
+            } else {
+                println("OCR asset $fileName already exists. Skipping download.")
+            }
+        }
+
+        val fontsDir = File(projectDir, "src/main/assets/fonts")
+        if (!fontsDir.exists()) {
+            fontsDir.mkdirs()
+        }
+
+        val fontFile = File(fontsDir, "NotoSansArabic-Regular.ttf")
+        val fontUrl = "https://github.com/google/fonts/raw/main/ofl/notosansarabic/NotoSansArabic-Regular.ttf"
+        if (!fontFile.exists() || fontFile.length() == 0L) {
+            println("Downloading font asset: NotoSansArabic-Regular.ttf...")
+            try {
+                URI(fontUrl).toURL().openStream().use { input ->
+                    fontFile.outputStream().use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                println("Downloaded NotoSansArabic-Regular.ttf successfully.")
+            } catch (e: Exception) {
+                println("Failed to download font: ${e.message}")
+            }
+        } else {
+            println("Font asset NotoSansArabic-Regular.ttf already exists. Skipping download.")
+        }
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn("downloadOcrAssets")
 }

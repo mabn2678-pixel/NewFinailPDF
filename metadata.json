@@ -1,6 +1,8 @@
 {
-  "name": "FinalPDF",
-  "description": "قارئ ملفات PDF الذكي مع ميزة الاستماع الصوتي لنطق الكلمات الإنجليزية بدقة ودعم تشغيل الصوت المدمج.",
+  "name": "Remix Remix Remix: UltraPDF Viewer",
+  "description": "Professional Android reader using PDF.js with native Jetpack Compose controls, custom bottom bar, and advanced document search features.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
