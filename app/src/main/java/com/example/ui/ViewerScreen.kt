@@ -272,50 +272,83 @@ fun ViewerScreen(
                 ?: uri.getQueryParameter("text") 
                 ?: uri.getQueryParameter("word") 
                 ?: uri.getQueryParameter("term")
-            if (!queryText.isNullOrBlank()) {
+            if (!queryText.isNullOrBlank() && !queryText.contains(".") && !queryText.contains("/")) {
                 return Uri.decode(queryText).trim()
             }
 
             // Check if URL has a /word/{word} or /pronunciation/{word} path
             val pathSegments = uri.pathSegments
             if (pathSegments != null) {
-                val wordIdx = pathSegments.indexOfFirst { it.equals("word", ignoreCase = true) || it.equals("words", ignoreCase = true) }
+                val wordIdx = pathSegments.indexOfFirst { 
+                    it.equals("word", ignoreCase = true) || 
+                    it.equals("words", ignoreCase = true) ||
+                    it.equals("pronunciation", ignoreCase = true)
+                }
                 if (wordIdx != -1 && wordIdx + 1 < pathSegments.size) {
-                    val w = Uri.decode(pathSegments[wordIdx + 1]).substringBefore(".").trim()
-                    if (w.isNotBlank()) return w
+                    var w = Uri.decode(pathSegments[wordIdx + 1]).trim()
+                    if (w.endsWith(".mp3", ignoreCase = true)) {
+                        w = w.removeSuffix(".mp3")
+                    } else if (w.contains(".")) {
+                        w = w.substringBeforeLast(".")
+                    }
+                    if (w.isNotBlank() && !w.equals("english", ignoreCase = true) && !w.equals("us", ignoreCase = true) && !w.equals("uk", ignoreCase = true)) {
+                        return w
+                    }
                 }
             }
 
-            val lastSegment = uri.lastPathSegment ?: return "نطق الكلمة"
-            var cleanName = if (lastSegment.contains(".")) {
-                lastSegment.substringBeforeLast(".")
-            } else {
-                lastSegment
+            // Extract word directly from the last path segment: Uri.parse(url).lastPathSegment?.removeSuffix(".mp3")
+            val lastSegment = uri.lastPathSegment
+            if (!lastSegment.isNullOrBlank()) {
+                var cleanName: String = lastSegment
+                val audioExtensions = listOf(".mp3", ".wav", ".ogg", ".m4a", ".aac")
+                for (ext in audioExtensions) {
+                    if (cleanName.endsWith(ext, ignoreCase = true)) {
+                        cleanName = cleanName.substring(0, cleanName.length - ext.length)
+                        break
+                    }
+                }
+                if (cleanName.contains(".")) {
+                    cleanName = cleanName.substringBeforeLast(".")
+                }
+                cleanName = Uri.decode(cleanName).trim()
+
+                // Remove typical dictionary prefixes/suffixes, e.g. "En-us-word" -> "word", "word__gb_1" -> "word"
+                cleanName = cleanName.replace(Regex("^(en[-_]|en[-_]us[-_]|en[-_]uk[-_]|en[-_]gb[-_])", RegexOption.IGNORE_CASE), "")
+                cleanName = cleanName.replace(Regex("(__gb_\\d+|__us_\\d+|_gb_\\d+|_us_\\d+|_\\d+)$", RegexOption.IGNORE_CASE), "")
+
+                // For Cambridge audio IDs like "ukprior028" or "ukpriority028" -> "priority"
+                if (cleanName.matches(Regex("^(uk|us)[a-zA-Z]{3,}\\d*$", RegexOption.IGNORE_CASE))) {
+                    val candidate = cleanName.replace(Regex("^(uk|us)", RegexOption.IGNORE_CASE), "")
+                                             .replace(Regex("\\d+$"), "")
+                    if (candidate.length >= 3) {
+                        cleanName = candidate
+                    }
+                }
+
+                cleanName = cleanName.replace("_", " ").replace("-", " ").trim()
+
+                // Guard against domain names or hosts being displayed
+                val isDomainOrHost = cleanName.contains("cambridge", ignoreCase = true) ||
+                                     cleanName.contains("dictionary", ignoreCase = true) ||
+                                     cleanName.endsWith(".org", ignoreCase = true) ||
+                                     cleanName.endsWith(".com", ignoreCase = true) ||
+                                     cleanName.endsWith(".net", ignoreCase = true) ||
+                                     cleanName.matches(Regex("^[0-9_\\-\\s]+$")) ||
+                                     cleanName.isEmpty()
+
+                if (!isDomainOrHost) {
+                    // Only apply German umlaut restoration if the URL is explicitly German
+                    val isGerman = url.contains("/german/", ignoreCase = true) || 
+                                   url.contains("de_pron", ignoreCase = true) || 
+                                   url.contains("lang=de", ignoreCase = true) || 
+                                   url.contains(".de/", ignoreCase = true)
+
+                    return if (isGerman) restoreGermanUmlauts(cleanName) else cleanName
+                }
             }
-            cleanName = Uri.decode(cleanName).trim()
 
-            // Remove typical dictionary prefixes/suffixes, e.g. "En-us-word" -> "word", "word__gb_1" -> "word"
-            cleanName = cleanName.replace(Regex("^(en[-_]|en[-_]us[-_]|en[-_]uk[-_]|en[-_]gb[-_])", RegexOption.IGNORE_CASE), "")
-            cleanName = cleanName.replace(Regex("(__gb_\\d+|__us_\\d+|_gb_\\d+|_us_\\d+|_\\d+)$", RegexOption.IGNORE_CASE), "")
-            cleanName = cleanName.replace("_", " ").replace("-", " ").trim()
-
-            // Check if this is an internal dictionary audio identifier that shouldn't be shown to the user as a truncated word
-            // E.g. "ukdocud029" -> "ukdocud", "ukmanuf019" -> "ukmanuf", "eus71387" -> "eus", "us123" -> "us"
-            val isOpaqueId = cleanName.matches(Regex("^(uk[a-z]{3,7}|us[a-z]{0,7}|eus)\\d*$", RegexOption.IGNORE_CASE)) ||
-                             cleanName.equals("eus", ignoreCase = true) ||
-                             cleanName.matches(Regex("^[0-9_\\-\\s]+$"))
-
-            if (isOpaqueId) {
-                return "نطق الكلمة"
-            }
-
-            // Only apply German umlaut restoration if the URL is explicitly German
-            val isGerman = url.contains("/german/", ignoreCase = true) || 
-                           url.contains("de_pron", ignoreCase = true) || 
-                           url.contains("lang=de", ignoreCase = true) || 
-                           url.contains(".de/", ignoreCase = true)
-
-            return if (isGerman) restoreGermanUmlauts(cleanName) else cleanName
+            return "نطق الكلمة"
         } catch (e: Exception) {
             return "نطق الكلمة"
         }
@@ -368,7 +401,26 @@ fun ViewerScreen(
     fun playAudio(url: String, explicitWordName: String? = null) {
         activeAudioUrl = url
         val cleanExplicit = explicitWordName?.trim()
-        val word = if (!cleanExplicit.isNullOrBlank() && cleanExplicit != "نطق الكلمة" && cleanExplicit != "كلمة غير معروفة") {
+        val isExplicitUrlOrDomain = cleanExplicit?.let {
+            it.startsWith("http://", ignoreCase = true) ||
+            it.startsWith("https://", ignoreCase = true) ||
+            it.contains("cambridge.org", ignoreCase = true) ||
+            it.contains(".org", ignoreCase = true) ||
+            it.contains(".com", ignoreCase = true) ||
+            it.contains(".net", ignoreCase = true) ||
+            it.contains("www.", ignoreCase = true) ||
+            it.contains("/") ||
+            it.equals("forvo", ignoreCase = true) ||
+            it.equals("audio", ignoreCase = true) ||
+            it.equals("sound", ignoreCase = true) ||
+            it.equals("listen", ignoreCase = true) ||
+            it.equals("pronunciation", ignoreCase = true)
+        } ?: false
+
+        val word = if (!cleanExplicit.isNullOrBlank() && 
+                       !isExplicitUrlOrDomain && 
+                       cleanExplicit != "نطق الكلمة" && 
+                       cleanExplicit != "كلمة غير معروفة") {
             cleanExplicit
         } else {
             extractWordFromUrl(url)
@@ -2631,6 +2683,13 @@ fun PdfWebView(
                                                     var isGeneric = function(t) {
                                                         if (!t) return true;
                                                         var clean = t.trim().toLowerCase();
+                                                        if (clean.indexOf('http://') !== -1 || clean.indexOf('https://') !== -1 ||
+                                                            clean.indexOf('www.') !== -1 || clean.indexOf('.org') !== -1 ||
+                                                            clean.indexOf('.com') !== -1 || clean.indexOf('.net') !== -1 ||
+                                                            clean.indexOf('cambridge') !== -1 || clean.indexOf('dictionary') !== -1 ||
+                                                            clean.indexOf('/') !== -1) {
+                                                            return true;
+                                                        }
                                                         return clean === 'forvo' || clean === 'listen' || clean === 'audio' ||
                                                                clean === 'sound' || clean === 'play' || clean === 'pronounce' ||
                                                                clean === 'pronunciation' || clean === 'uk' || clean === 'us' ||
@@ -2648,8 +2707,12 @@ fun PdfWebView(
                                                         return trimmed.trim();
                                                     };
 
-                                                    // 1. Direct text on anchor itself
-                                                    var direct = (anchor.innerText || anchor.textContent || anchor.getAttribute('aria-label') || anchor.title || '').trim();
+                                                    // 1. Direct text on anchor itself (avoid using anchor.title if it contains a URL/domain)
+                                                    var direct = (anchor.innerText || anchor.textContent || anchor.getAttribute('aria-label') || '').trim();
+                                                    var titleAttr = (anchor.getAttribute('title') || '').trim();
+                                                    if (!direct && titleAttr && !isGeneric(titleAttr)) {
+                                                        direct = titleAttr;
+                                                    }
                                                     direct = cleanWord(direct);
                                                     if (direct && !isGeneric(direct)) {
                                                         return direct;
@@ -5459,7 +5522,34 @@ fun MiniPlayerOverlay(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val displayText = wordName.ifEmpty { "نطق الكلمة" }.trim()
+    val cleanWord = remember(wordName) {
+        val trimmed = wordName.trim()
+        if (trimmed.contains("http://", ignoreCase = true) ||
+            trimmed.contains("https://", ignoreCase = true) ||
+            trimmed.contains("cambridge.org", ignoreCase = true) ||
+            trimmed.contains(".org", ignoreCase = true) ||
+            trimmed.contains(".com", ignoreCase = true) ||
+            trimmed.contains(".net", ignoreCase = true) ||
+            trimmed.contains("/")) {
+            try {
+                val uri = Uri.parse(trimmed)
+                val last = uri.lastPathSegment ?: ""
+                var sub = last.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg").removeSuffix(".m4a")
+                if (sub.contains(".")) sub = sub.substringBeforeLast(".")
+                sub = Uri.decode(sub).trim()
+                if (sub.isNotBlank() && !sub.contains(".org", ignoreCase = true) && !sub.contains(".com", ignoreCase = true) && !sub.contains("cambridge", ignoreCase = true)) {
+                    sub
+                } else {
+                    "نطق الكلمة"
+                }
+            } catch (e: Exception) {
+                "نطق الكلمة"
+            }
+        } else {
+            trimmed
+        }
+    }
+    val displayText = cleanWord.ifEmpty { "نطق الكلمة" }.trim()
     val textLength = displayText.length
 
     val fontSize = when {
