@@ -1,0 +1,735 @@
+Skip to content
+NewFinailPDF
+Repository navigation
+Code
+Issues
+Pull requests
+Build Android APK
+build: clean up project configuration and dependencies #11
+Annotations
+1 error, 2 warnings, and 1 notice
+build
+failed 1 minute ago in 4m 32s
+2s
+3s
+0s
+1s
+0s
+1m 12s
+0s
+40s
+0s
+2m 30s
+Run ./gradlew assembleRelease
+  ./gradlew assembleRelease
+  shell: /usr/bin/bash -e {0}
+  env:
+    JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+    JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+    STORE_PASSWORD: android
+    KEY_PASSWORD: android
+    KEYSTORE_PATH: /home/runner/work/NewFinailPDF/NewFinailPDF/my-upload-key.jks
+Calculating task graph as no cached configuration is available for tasks: assembleRelease
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:generateReleaseResources
+> Task :app:generateReleaseBuildConfig
+
+> Task :app:processReleaseGoogleServices
+File google-services.json is missing.
+The Google Services Plugin cannot function without it.
+Searched locations: /home/runner/work/NewFinailPDF/NewFinailPDF/app/src/release/google-services.json, /home/runner/work/NewFinailPDF/NewFinailPDF/app/src/release/google-services.json, /home/runner/work/NewFinailPDF/NewFinailPDF/app/src/google-services.json, /home/runner/work/NewFinailPDF/NewFinailPDF/app/src/release/google-services.json, /home/runner/work/NewFinailPDF/NewFinailPDF/app/src/Release/google-services.json, /home/runner/work/NewFinailPDF/NewFinailPDF/app/google-services.json
+
+> Task :app:packageReleaseResources
+> Task :app:mergeReleaseJniLibFolders
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:processReleaseNavigationResources
+> Task :app:javaPreCompileRelease
+> Task :app:parseReleaseLocalResources
+> Task :app:mergeReleaseNativeLibs
+> Task :app:generateReleaseRFile
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:compileReleaseNavigationResources
+
+> Task :app:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+
+> Task :app:checkReleaseAarMetadata
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:desugarReleaseFileDependencies
+> Task :app:mergeReleaseStartupProfile
+> Task :app:kspReleaseKotlin
+> Task :app:processReleaseMainManifest
+> Task :app:mergeReleaseResources
+> Task :app:processReleaseManifest
+> Task :app:mergeExtDexRelease
+> Task :app:processReleaseManifestForPackage
+> Task :app:compileReleaseKotlin
+> Task :app:mergeReleaseArtProfile
+> Task :app:processReleaseResources
+> Task :app:mergeReleaseAssets
+> Task :app:extractReleaseVersionControlInfo
+> Task :app:extractProguardFiles
+> Task :app:optimizeReleaseResources
+> Task :app:validateSigningRelease
+> Task :app:writeReleaseAppMetadata
+> Task :app:writeReleaseSigningConfigVersions
+> Task :app:compressReleaseAssets
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/data/SecureKeyManager.kt:58:46 Unresolved reference 'GEMINI_API_KEY'.
+
+> Task :app:compileReleaseKotlin FAILED
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:21:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:22:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:23:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:24:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:25:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:26:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:27:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:195:52 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:205:32 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:205:43 Unresolved reference 'ProcessCameraProvider'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:206:23 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:206:37 Property delegate must have a 'setValue(Nothing?, KMutableProperty0<ERROR CLASS: Symbol not found for ImageCapture?>, ERROR CLASS: Symbol not found for ImageCapture?)' method. None of the following functions is applicable:
+fun <T> MutableState<T>.setValue(thisObj: Any?, property: KProperty<*>, value: T): Unit
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:213:42 Unresolved reference 'isDone'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:214:45 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:214:48 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:356:66 Unresolved reference 'isDone'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:357:69 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:357:72 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:367:33 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:369:59 Unresolved reference 'PreviewView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:370:86 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:371:55 Unresolved reference 'Preview'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:372:56 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:376:56 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:377:61 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:378:77 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:378:109 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:382:60 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:383:60 Unresolved reference 'bindToLifecycle'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:492:51 Unresolved reference 'flashMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:492:81 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:492:113 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:514:49 Unresolved reference 'takePicture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:516:54 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:517:49 'onCaptureSuccess' overrides nothing.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:517:86 Unresolved reference 'ImageProxy'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:519:59 Unresolved reference 'close'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:540:49 'onError' overrides nothing.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:540:81 Unresolved reference 'ImageCaptureException'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:544:94 Unresolved reference 'localizedMessage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1523:39 Unresolved reference 'ImageProxy'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1524:22 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1524:28 Unresolved reference 'planes'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1525:29 Unresolved reference 'buffer'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1527:12 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/CameraOcrScreen.kt:1530:33 Unresolved reference 'imageInfo'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:6:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:7:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:8:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:9:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:10:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:11:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:12:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:13:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:14:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:15:12 Unresolved reference 'tom_roush'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:41:9 Unresolved reference 'PDFBoxResourceLoader'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:45:24 Unresolved reference 'PDDocument'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:59:26 Unresolved reference 'PDFont'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:60:17 Argument type mismatch: actual type is 'K#1 (of fun <K> TRY_CALL)', but 'K#2 (of fun <K> WHEN_CALL)' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:61:21 Unresolved reference 'PDType0Font'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:64:21 Unresolved reference 'PDType1Font'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:67:17 Unresolved reference 'PDType1Font'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:74:32 Unresolved reference 'PDRectangle'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:75:28 Unresolved reference 'PDPage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:80:21 Unresolved reference 'JPEGFactory'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:82:21 Unresolved reference 'LosslessFactory'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:85:37 Unresolved reference 'PDPageContentStream'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:137:43 Unresolved reference 'PDFont'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/PdfBoxGenerator.kt:149:22 Unresolved reference 'encode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:11:12 Unresolved reference 'googlecode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:28:26 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:127:22 Unresolved reference 'recycle'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:130:23 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:133:35 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:196:17 Unresolved reference 'pageSegMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:196:31 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:197:17 Unresolved reference 'setImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:198:17 Unresolved reference 'getHOCRText'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:200:32 Unresolved reference 'resultIterator'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:202:29 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:204:41 Unresolved reference 'getUTF8Text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:205:48 Unresolved reference 'getBoundingRect'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:206:47 Unresolved reference 'confidence'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:209:46 Unresolved reference 'trim'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:223:35 Unresolved reference 'next'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:245:17 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:245:26 Unresolved reference 'pageSegMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:245:40 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:246:17 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:246:26 Unresolved reference 'setImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:247:27 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:247:36 Unresolved reference 'utF8Text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:264:17 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:264:26 Unresolved reference 'pageSegMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:264:40 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:265:17 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:265:26 Unresolved reference 'setImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:266:29 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:266:38 Unresolved reference 'utF8Text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:278:22 Unresolved reference 'setImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:279:54 Unresolved reference 'utF8Text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:287:21 Unresolved reference 'pageSegMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:287:35 Unresolved reference 'TessBaseAPI'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:288:21 Unresolved reference 'setImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:289:34 Unresolved reference 'utF8Text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ocr/TesseractManager.kt:338:22 Unresolved reference 'recycle'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:3:29 Unresolved reference 'BottomBarPresets'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:239:18 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:242:21 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:246:18 Unresolved reference 'BottomBarPresets'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:246:68 Unresolved reference 'BottomBarPresets'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:246:68 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:251:28 Unresolved reference 'darkBg'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:251:47 Unresolved reference 'lightBg'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:257:28 Unresolved reference 'darkOnSelected'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:257:55 Unresolved reference 'lightOnSelected'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:263:28 Unresolved reference 'darkUnselected'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:263:55 Unresolved reference 'lightUnselected'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:270:29 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:270:47 Unresolved reference 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:278:29 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:287:33 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:296:29 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:296:51 Unresolved reference 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:307:36 Unresolved reference 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:309:23 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/AnimatedBottomNavBar.kt:309:59 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:17:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:18:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:19:17 Unresolved reference 'camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:66:19 Unresolved reference 'mlkit'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:67:19 Unresolved reference 'mlkit'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:68:19 Unresolved reference 'mlkit'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:92:12 Unresolved reference 'PdfUiState'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:125:52 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:285:32 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:285:43 Unresolved reference 'ProcessCameraProvider'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:286:19 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:286:19 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:286:45 Unresolved reference 'Camera'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:286:54 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:287:25 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:287:25 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:287:51 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:287:66 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:288:27 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:288:27 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:288:53 Unresolved reference 'PreviewView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:288:67 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:318:33 Unresolved reference 'cameraControl'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:439:62 Unresolved reference 'isDone'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:440:65 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:440:68 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:449:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:451:55 Unresolved reference 'PreviewView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:451:72 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:451:78 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:452:41 Unresolved reference 'scaleType'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:452:53 Unresolved reference 'PreviewView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:453:41 Unresolved reference 'implementationMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:453:62 Unresolved reference 'PreviewView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:457:58 Unresolved reference 'addListener'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:459:90 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:460:59 None of the following candidates is applicable:
+val Icons.Filled.Preview: ImageVector
+val Icons.Outlined.Preview: ImageVector
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:460:67 Unresolved reference 'Builder'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:460:85 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:460:90 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:461:52 Unresolved reference 'setSurfaceProvider'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:461:83 Unresolved reference 'surfaceProvider'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:464:59 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:465:65 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:469:66 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:473:60 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:474:69 Unresolved reference 'bindToLifecycle'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:487:45 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:489:66 Unresolved reference 'isDone'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:490:69 No value passed for parameter 'name'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:490:72 Unresolved reference 'unbindAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:669:41 Unresolved reference 'takePicture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:671:46 Unresolved reference 'ImageCapture'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:672:41 'onCaptureSuccess' overrides nothing.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:672:78 Unresolved reference 'ImageProxy'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:673:73 Unresolved reference 'imageInfo'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:674:58 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:674:64 Unresolved reference 'planes'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:674:74 Unresolved reference 'buffer'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:676:52 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:678:51 Unresolved reference 'close'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:710:41 'onError' overrides nothing.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:710:73 Unresolved reference 'ImageCaptureException'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:711:93 Unresolved reference 'message'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:713:82 Unresolved reference 'bitmap'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:715:70 Assignment type mismatch: actual type is 'Any', but 'Bitmap?' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:722:112 Unresolved reference 'localizedMessage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:729:59 Unresolved reference 'bitmap'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:731:54 Assignment type mismatch: actual type is 'Any', but 'Bitmap?' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:891:60 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:892:33 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:894:33 Unresolved reference 'CameraSelector'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1154:26 Unresolved reference 'TextRecognition'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1154:52 Unresolved reference 'TextRecognizerOptions'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1155:26 Unresolved reference 'InputImage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1157:32 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1157:32 Not enough information to infer type argument for 'TResult'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/CameraOcrSheet.kt:1158:37 Unresolved reference 'text'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3:29 Unresolved reference 'BottomBarPresets'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4:29 Unresolved reference 'BottomBarColorPreset'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:72:8 Unresolved reference 'coil'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:91:20 Property delegate must have a 'getValue(Nothing?, KProperty0<ERROR CLASS: Cannot infer argument for type parameter T>)' method. None of the following functions is applicable:
+fun <T> State<T>.getValue(thisObj: Any?, property: KProperty<*>): T
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:91:23 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:91:33 Unresolved reference 'recentPdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:91:44 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:91:69 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:93:37 Unresolved reference 'selectedFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:94:37 Unresolved reference 'isSelectionMode'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:95:62 Unresolved reference 'toggleSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:97:33 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:97:33 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:97:59 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:97:74 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:98:25 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:98:25 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:98:51 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:98:66 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:99:25 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:99:25 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:99:51 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:99:66 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:100:27 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:100:27 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:100:53 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:100:68 Null cannot be a value of a non-null type 'uninferred T (of fun <T> mutableStateOf)'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:112:23 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:113:28 Unresolved reference 'selectedTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:113:43 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:114:23 Unresolved reference 'setTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:114:30 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:125:40 Unresolved reference 'copyUriToCache'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:127:27 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:139:28 Unresolved reference 'selectedTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:177:51 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:178:56 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:180:52 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:180:70 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:181:68 Function invocation 'size(...)' expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:182:43 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:184:43 Unresolved reference 'selectAll'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:193:47 Unresolved reference 'selectedTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:194:45 Unresolved reference 'showToolsTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:195:55 Unresolved reference 'bottomBarColorIndex'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:196:41 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:196:53 Unresolved reference 'setTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:203:35 Unresolved reference 'selectedTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:203:50 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:235:27 Unresolved reference 'selectedTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:236:17 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:243:41 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:244:41 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:245:52 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:250:17 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:255:41 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:256:41 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:258:17 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:261:17 Unresolved reference 'DashboardTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:271:20 Smart cast to 'TypeVariable(K)?' is impossible, because 'showFileActionsSheet' is a delegated property.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:274:31 Unresolved reference 'isFavorite'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:275:39 Unresolved reference 'toggleFavorite'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:275:68 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:276:36 Unresolved reference 'toggleSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:276:57 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:277:48 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:277:63 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:287:50 Smart cast to 'TypeVariable(K)?' is impossible, because 'fileToRename' is a delegated property.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:287:65 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:307:35 Unresolved reference 'renamePdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:309:45 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:315:41 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:316:83 Unresolved reference 'show'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:338:53 Smart cast to 'TypeVariable(K)?' is impossible, because 'fileToDelete' is a delegated property.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:338:68 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:345:35 Unresolved reference 'deletePdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:347:45 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:352:41 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:353:83 Unresolved reference 'show'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:381:35 Unresolved reference 'deleteMultiplePdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:386:43 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:389:41 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:390:83 Unresolved reference 'show'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:407:51 'operator' modifier is required on 'FirNamedFunctionSymbol kotlin/compareTo' in 'compareTo'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:434:35 Unresolved reference 'mergePdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:438:43 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:441:43 Unresolved reference 'clearSelection'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:442:43 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:445:41 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:478:20 Smart cast to 'TypeVariable(K)?' is impossible, because 'fileToViewInfo' is a delegated property.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:482:27 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:484:27 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:484:45 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:484:63 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:486:28 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:487:43 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:487:61 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:498:27 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:511:14 Unresolved reference 'PdfUiState'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:516:25 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:517:25 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:534:42 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:534:63 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:534:93 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:534:117 Unresolved reference 'sortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:535:28 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:540:37 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:541:39 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:542:39 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:547:21 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:548:34 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:548:63 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:552:16 'when' expression must be exhaustive. Add an 'else' branch.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:552:30 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:553:13 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:554:13 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:554:51 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:555:13 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:556:48 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:559:19 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:567:21 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:573:46 Unresolved reference 'starredPdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:576:73 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:576:115 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:577:38 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:577:53 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:578:65 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:595:23 Unresolved reference 'sortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:596:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:597:29 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:597:47 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:598:65 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:600:37 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:600:78 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:600:83 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:603:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:603:54 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:603:105 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:603:110 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:604:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:604:65 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:605:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:605:76 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:606:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:606:52 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:607:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:607:63 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:608:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:608:86 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:609:13 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:609:75 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:751:29 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:752:41 Unresolved reference 'setDashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:752:65 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:761:31 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:762:17 @Composable invocations can only happen from the context of a @Composable function
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:774:37 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:781:25 Unresolved reference 'innerTextField'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:783:33 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:785:51 Unresolved reference 'setDashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:879:40 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:879:58 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:880:43 Unresolved reference 'setFileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:880:57 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:884:40 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:884:58 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:885:43 Unresolved reference 'setFileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:885:57 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:889:40 Unresolved reference 'selectedFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:889:58 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:890:43 Unresolved reference 'setFileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:890:57 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:902:35 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:919:43 Unresolved reference 'toggleGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:925:51 Unresolved reference 'isGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:944:27 Unresolved reference 'isEmpty'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:945:53 Unresolved reference 'dashboardSearchQuery'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:947:25 Unresolved reference 'isGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:958:27 Argument type mismatch: actual type is 'Unit', but 'Int' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:958:53 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:959:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:965:74 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:976:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:978:47 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:978:62 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:978:77 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:982:57 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1000:27 Argument type mismatch: actual type is 'Unit', but 'Int' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1000:53 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1001:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1007:74 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1018:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1020:47 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1020:62 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1020:77 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1024:57 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1040:34 Unresolved reference 'sortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1041:30 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1041:42 Unresolved reference 'setSortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1095:11 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1166:41 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1189:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1190:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1191:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1195:33 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1221:34 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1222:34 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1226:41 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1241:41 Unresolved reference 'fileSize'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1270:11 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1314:41 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1371:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1372:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1373:26 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1377:33 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1400:34 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1401:34 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1405:41 Unresolved reference 'folderName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1421:41 Unresolved reference 'fileSize'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1663:17 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1664:22 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1709:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1710:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1715:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1716:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1737:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1738:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1743:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1744:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1765:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1766:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1771:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1772:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1793:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1794:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1799:46 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1800:48 Unresolved reference 'SortOption'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1841:14 Unresolved reference 'PdfUiState'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1845:30 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1858:33 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1858:66 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1860:23 'operator' modifier is required on 'FirNamedFunctionSymbol kotlin/compareTo' in 'compareTo'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1861:23 'operator' modifier is required on 'FirNamedFunctionSymbol kotlin/compareTo' in 'compareTo'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1865:33 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1865:53 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1866:31 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1866:51 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1866:96 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:1868:58 Unresolved reference 'totalReadingTimeSeconds'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2060:14 Unresolved reference 'PdfUiState'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2063:25 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2064:25 Unresolved reference 'LocalPdfFile'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2067:20 Property delegate must have a 'getValue(Nothing?, KProperty0<ERROR CLASS: Cannot infer argument for type parameter T>)' method. None of the following functions is applicable:
+fun <T> State<T>.getValue(thisObj: Any?, property: KProperty<*>): T
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2067:23 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2067:33 Unresolved reference 'recentPdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2067:44 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2067:69 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2069:25 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2070:34 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2074:24 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2074:41 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2075:17 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2075:39 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2093:32 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2094:40 Function invocation 'keys(...)' expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2104:40 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2104:40 Function 'component1()' is ambiguous for this expression: 
+fun <T> Array<out T>.component1(): T
+fun ByteArray.component1(): Byte
+fun ShortArray.component1(): Short
+fun IntArray.component1(): Int
+fun LongArray.component1(): Long
+fun FloatArray.component1(): Float
+fun DoubleArray.component1(): Double
+fun BooleanArray.component1(): Boolean
+fun CharArray.component1(): Char
+fun <T> List<T>.component1(): T
+fun <K, V> Map.Entry<K, V>.component1(): K
+fun UIntArray.component1(): UInt
+fun ULongArray.component1(): ULong
+fun UByteArray.component1(): UByte
+fun UShortArray.component1(): UShort.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2104:40 Function 'component2()' is ambiguous for this expression: 
+fun <T> Array<out T>.component2(): T
+fun ByteArray.component2(): Byte
+fun ShortArray.component2(): Short
+fun IntArray.component2(): Int
+fun LongArray.component2(): Long
+fun FloatArray.component2(): Float
+fun DoubleArray.component2(): Double
+fun BooleanArray.component2(): Boolean
+fun CharArray.component2(): Char
+fun <T> List<T>.component2(): T
+fun <K, V> Map.Entry<K, V>.component2(): V
+fun UIntArray.component2(): UInt
+fun ULongArray.component2(): ULong
+fun UByteArray.component2(): UByte
+fun UShortArray.component2(): UShort.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2138:52 Unresolved reference 'length'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2139:52 Unresolved reference 'length'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2140:52 Unresolved reference 'length'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2153:57 Function invocation 'size(...)' expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:33 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:33 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:33 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:33 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:44 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:44 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2171:59 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2172:31 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2172:31 Not enough information to infer type argument for 'V'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2172:31 Not enough information to infer type argument for 'K'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2172:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2172:63 Not enough information to infer type argument for 'T'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2176:21 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2177:21 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2177:66 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2178:21 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2179:60 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2179:72 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2180:65 Unresolved reference 'it'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2180:79 Unresolved reference 'lastOpened'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2215:53 Function invocation 'size(...)' expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2237:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2238:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2242:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2243:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2247:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2248:52 Unresolved reference 'FileFilter'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2262:39 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2279:47 Unresolved reference 'toggleGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2285:55 Unresolved reference 'isGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2296:37 Unresolved reference 'isEmpty'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2320:29 Unresolved reference 'isGridView'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2327:31 Argument type mismatch: actual type is 'Unit', but 'Int' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2327:63 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2328:65 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2329:88 Unresolved reference 'totalPages'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2330:45 Unresolved reference 'lastPage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2330:77 Unresolved reference 'totalPages'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2332:88 Unresolved reference 'lastOpened'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2334:78 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2345:65 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2347:51 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2347:66 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2347:81 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2351:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2365:31 Argument type mismatch: actual type is 'Unit', but 'Int' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2365:63 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2366:65 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2367:88 Unresolved reference 'totalPages'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2368:45 Unresolved reference 'lastPage'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2368:77 Unresolved reference 'totalPages'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2370:88 Unresolved reference 'lastOpened'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2372:78 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2383:65 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2385:51 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2385:66 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2385:81 Unresolved reference 'fileName'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2389:61 Unresolved reference 'filePath'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2826:44 Unresolved reference 'copyUriToCache'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2828:46 Assignment type mismatch: actual type is 'Any', but 'String' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2842:31 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2854:48 Unresolved reference 'copyUriToCache'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2856:38 Argument type mismatch: actual type is 'Any', but 'String' was expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2860:27 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2867:30 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2868:27 Unresolved reference 'copyUriToCache'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:2882:35 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3076:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3078:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3125:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3127:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3176:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3178:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3228:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3230:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3266:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3268:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3370:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3372:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3412:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3414:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3475:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3477:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3511:63 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3513:83 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3602:55 Unresolved reference 'mergePdfs'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3606:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3610:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3612:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3631:55 Unresolved reference 'splitPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3637:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3641:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3643:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3660:55 Unresolved reference 'compressPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3665:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3669:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3671:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3689:55 Unresolved reference 'rotatePdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3695:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3699:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3701:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3727:55 Unresolved reference 'reorderPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3732:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3736:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3738:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3764:55 Unresolved reference 'deletePagesPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3769:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3773:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3775:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3792:55 Unresolved reference 'imageToPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3796:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3800:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3802:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3815:55 Unresolved reference 'pdfToImages'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3820:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3823:95 Function invocation 'size(...)' expected.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3825:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3846:55 Unresolved reference 'lockPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3855:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3859:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3861:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3882:55 Unresolved reference 'unlockPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3887:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3891:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3893:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3911:55 Unresolved reference 'convertPdfCloudOcr'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3916:68 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3919:63 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3923:63 Unresolved reference 'scanFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3925:61 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3971:27 Unresolved reference 'selectPdf'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:3981:35 Unresolved reference 'allPdfFiles'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4133:14 Unresolved reference 'PdfUiState'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4231:51 Unresolved reference 'appTheme'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4247:47 Unresolved reference 'showToolsTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4248:59 Unresolved reference 'setShowToolsTab'.
+e: file:///home/runner/work/NewFinailPDF/NewFinailPDF/app/src/main/java/com/example/ui/DashboardScreen.kt:4271:49 Unresolved reference 'scrollMode'.
+…
